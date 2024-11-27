@@ -19,6 +19,7 @@ function App() {
     "Sunrisers Hyderabad",
     "Lucknow Super Giants",
     "Gujarat Titans"])
+    const [disteam,setDisTeam]=useState(JSON.parse(window.localStorage.getItem("disteam")) || [])
     const [t, setT] = useState(teamArr[0])
 
   const [teamDetails, setTeamDetails] = useState(JSON.parse(window.localStorage.getItem("details")) || teamArr.map(x => {
@@ -53,7 +54,10 @@ function App() {
   useEffect(()=>{
     let r=teamDetails.find(x=>x.spent>=80)
     if(r){
-      alert(`${r.name},"is disqualified`)
+      alert(`${r.name},is disqualified`)
+      setDisTeam([...disteam,r])
+      window.localStorage.setItem("disteam",JSON.stringify(disteam))
+      setTeamDetails(teamDetails.filter(x=>x.name!==r.name))
     }
   },[teamDetails])
 
@@ -86,6 +90,8 @@ function App() {
           // countRef.current++
           // console.log(countRef.current)
           window.localStorage.removeItem("details")
+          window.localStorage.removeItem("disteam")
+
           window.location.reload()
         } 
         }>
