@@ -55,7 +55,7 @@ function App() {
     if(r){
       alert(r.name,"is disqualified")
     }
-  })
+  },[teamDetails])
 
   return (
     <>
