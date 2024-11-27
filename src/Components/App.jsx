@@ -118,22 +118,22 @@ function App() {
               <p>Remaining: ₹<span id="${team}-remaining">{x.remaining}</span> crore</p>
              
              
-              <div className="flex flex-col justify-evenly" ><h4 className="text-md text-blue-600">Wicketkeeper:</h4>
+              <div className="w-full flex flex-col justify" ><h4 className="text-md text-blue-600">Wicketkeeper:</h4>
               <ul className="w-full flex flex-col justify-evenly items-start"
               
               >{x.WicketKeeper.map((x,index)=>
               <li key={index} >{x}</li>
               )}</ul></div>
-              <div className="flex flex-col justify-evenly" ><h4 className="text-md text-blue-600">Bowler:</h4><ul className="w-full flex flex-col justify-evenly items-start">{x.Bowlers.map((x,index)=>
+              <div className="w-full flex flex-col justify" ><h4 className="text-md text-blue-600">Bowler:</h4><ul className="w-full flex flex-col justify-evenly items-start">{x.Bowlers.map((x,index)=>
               <li key={index} >{x}</li>
               )}</ul></div>
-              <div className="flex flex-col justify-evenly" ><h4 className="text-md text-blue-600">Batsman:</h4><ul className="w-full flex flex-col justify-evenly items-start">{x.Batsman.map((x,index)=>
+              <div className="w-full flex flex-col justify" ><h4 className="text-md text-blue-600">Batsman:</h4><ul className="w-full flex flex-col justify-evenly items-start">{x.Batsman.map((x,index)=>
               <li key={index} >{x}</li>
               )}</ul></div>
-              <div className="flex flex-col justify-evenly" ><h4 className="text-md text-blue-600">All rounders:</h4><ul className="w-full flex flex-col justify-evenly items-start">{x.Allrounders.map((x,index)=>
+              <div className="w-full flex flex-col justify" ><h4 className="text-md text-blue-600">All rounders:</h4><ul className="w-full flex flex-col justify-evenly items-start">{x.Allrounders.map((x,index)=>
               <li key={index} >{x}</li>
               )}</ul></div>
-               <div className="flex flex-col justify-evenly" ><h4 className="text-md text-blue-600"> Finisher:</h4><ul className="w-full flex flex-col justify-evenly items-start">{x.Finisher.map((x,index)=>
+               <div className="w-full flex flex-col justify" ><h4 className="text-md text-blue-600"> Finisher:</h4><ul className="w-full flex flex-col justify-evenly items-start">{x.Finisher.map((x,index)=>
               <li key={index} >{x}</li>
               )}</ul></div>
                
