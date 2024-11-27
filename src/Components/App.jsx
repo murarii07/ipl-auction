@@ -132,7 +132,7 @@ function App() {
               <div className="w-full flex flex-col justify" ><h4 className="text-md text-blue-600">Batsman:</h4><ul className="w-full flex flex-col justify-evenly items-start">{x.Batsman.map((x,index)=>
               <li key={index} >{x}</li>
               )}</ul></div>
-              <div className="w-full flex flex-col justify" ><h4 className="text-md text-blue-600">All rounders:</h4><ul className="w-full flex flex-col justify-evenly items-start">{x["All-rounders"].map((x,index)=>
+              <div className="w-full flex flex-col justify" ><h4 className="text-md text-blue-600">All rounders:</h4><ul className="w-full flex flex-col justify-evenly items-start">{x["All-rounder"].map((x,index)=>
               <li key={index} >{x}</li>
               )}</ul></div>
                <div className="w-full flex flex-col justify" ><h4 className="text-md text-blue-600"> Finisher:</h4><ul className="w-full flex flex-col justify-evenly items-start">{x.Finisher.map((x,index)=>
