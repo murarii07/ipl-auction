@@ -21,108 +21,15 @@ function App() {
     "Lucknow Super Giants",
     "Gujarat Titans"])
 
-  const [teamDetails,setTeamDetails] = useState([
-    {
-    name: "Chennai Super Kings",
-    spent: 0,
+  const [teamDetails,setTeamDetails] = useState(teamArr.map(x=>{
+    return{name:x, spent: 0,
     remaining: 80,
     WicketKeeper: [],
     Batsman: [],
     Finisher: [],
     Bowlers: [],
     Allrounders: []
-
-  },{
-    name: "Chennai Super Kings",
-    spent: 0,
-    remaining: 80,
-    WicketKeeper: [],
-    Batsman: [],
-    Finisher: [],
-    Bowlers: [],
-    Allrounders: []
-
-  },{
-    name: "Chennai Super Kings",
-    spent: 0,
-    remaining: 80,
-    WicketKeeper: [],
-    Batsman: [],
-    Finisher: [],
-    Bowlers: [],
-    Allrounders: []
-
-  },{
-    name: "Chennai Super Kings",
-    spent: 0,
-    remaining: 80,
-    WicketKeeper: [],
-    Batsman: [],
-    Finisher: [],
-    Bowlers: [],
-    Allrounders: []
-
-  },{
-    name: "Chennai Super Kings",
-    spent: 0,
-    remaining: 80,
-    WicketKeeper: [],
-    Batsman: [],
-    Finisher: [],
-    Bowlers: [],
-    Allrounders: []
-
-  },{
-    name: "Chennai Super Kings",
-    spent: 0,
-    remaining: 80,
-    WicketKeeper: [],
-    Batsman: [],
-    Finisher: [],
-    Bowlers: [],
-    Allrounders: []
-
-  },{
-    name: "Chennai Super Kings",
-    spent: 0,
-    remaining: 80,
-    WicketKeeper: [],
-    Batsman: [],
-    Finisher: [],
-    Bowlers: [],
-    Allrounders: []
-
-  },{
-    name: "Chennai Super Kings",
-    spent: 0,
-    remaining: 80,
-    WicketKeeper: [],
-    Batsman: [],
-    Finisher: [],
-    Bowlers: [],
-    Allrounders: []
-
-  },{
-    name: "Chennai Super Kings",
-    spent: 0,
-    remaining: 80,
-    WicketKeeper: [],
-    Batsman: [],
-    Finisher: [],
-    Bowlers: [],
-    Allrounders: []
-
-  },{
-    name: "Chennai Super Kings",
-    spent: 0,
-    remaining: 80,
-    WicketKeeper: [],
-    Batsman: [],
-    Finisher: [],
-    Bowlers: [],
-    Allrounders: []
-
-  }])
+}}))
   const h = (e) => {
     setPrice(e.target.value)
   }
