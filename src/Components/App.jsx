@@ -114,7 +114,7 @@ function App() {
           const d=teamDetails.map((x)=>{
             if(x.name===t){
               console.log("s",x[arr.Role])
-                          return {...x,[`${arr.Role}`]:[...x[`${arr.Role}`],`${arr.playerName} (${arr.Rank})- ₹${price}crore`],spent:parseFloat(price+x.spent).toFixed(2), remaining:(x.remaining-price).toFixed(2), }
+                          return {...x,[`${arr.Role}`]:[...x[`${arr.Role}`],`${arr.playerName} (${arr.Rank})- ₹${price}crore`],spent:parseFloat(price+parseFloat(x.spent)).toFixed(2), remaining:(x.remaining-price).toFixed(2), }
             }
             return x
           })
