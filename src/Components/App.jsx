@@ -1,15 +1,16 @@
 import { useEffect, useRef, useState } from 'react'
-
-import '../App.css'
 import { players } from '../team'
+import { TeamList } from './TeamList'
+import '../App.css'
 
 function App() {
   const [playersDetails] = useState(players)
+  const [tog, setTog] = useState(true)
   const [arr, setArr] = useState(playersDetails[0])
   const [count, setCount] = useState(0)
   // const countRef=useRef(count)
   const [price, setPrice] = useState(parseFloat(arr.basePrice))
-  const [teamArr] = useState(["Chennai Super Kings",
+  const [teamArr, setTeamArr] = useState(["Chennai Super Kings",
     "Mumbai Indians",
     "Royal Challengers Bangalore",
     "Kolkata Knight Riders",
@@ -19,8 +20,8 @@ function App() {
     "Sunrisers Hyderabad",
     "Lucknow Super Giants",
     "Gujarat Titans"])
-    const [disteam,setDisTeam]=useState(JSON.parse(window.localStorage.getItem("disteam")) || [])
-    const [t, setT] = useState(teamArr[0])
+  const [disteam, setDisTeam] = useState(JSON.parse(window.localStorage.getItem("disteam")) || [])
+  const [t, setT] = useState(teamArr[0])
 
   const [teamDetails, setTeamDetails] = useState(JSON.parse(window.localStorage.getItem("details")) || teamArr.map(x => {
     return {
@@ -34,7 +35,10 @@ function App() {
     }
   }))
   const h = (e) => {
-    setPrice(e.target.value)
+    const newPrice = parseFloat(e.target.value) || 0; // Ensure valid number
+    console.log("New Price:", newPrice); // Debug log
+    setPrice(newPrice);
+
   }
   const hh = (e) => {
     console.log(e.target)
@@ -48,60 +52,64 @@ function App() {
   }, [count])
 
   useEffect(() => {
-    setPrice(arr.basePrice.split("")[0])
+    console.log(arr.basePrice)
+    setPrice(arr.basePrice)
 
   }, [arr])
-  useEffect(()=>{
-    let r=teamDetails.find(x=>x.spent>=80)
-    if(r){
+  useEffect(() => {
+    let r = teamDetails.find(x => x.spent >= 80)
+    if (r) {
       alert(`${r.name},is disqualified`)
-      setDisTeam([...disteam,r])
-      window.localStorage.setItem("disteam",JSON.stringify(disteam))
-      setTeamDetails(teamDetails.filter(x=>x.name!==r.name))
+      setDisTeam((e) => [...e, r])
+      window.localStorage.setItem("disteam", JSON.stringify(disteam))
+      setTeamDetails(teamDetails.filter(x => x.name !== r.name))
+      setTeamArr(teamArr.filter(x => x !== r.name))
+      setTog(false)
     }
-  },[teamDetails])
+  }, [teamDetails])
+
 
   return (
     <>
-      <header className='min-h-16 bg-blue-500 flex justify-center items-center mt-0'>
+      <header className='min-h-16 bg-blue-500 flex justify-center items-center mt-0 '>
         <h1 className=' text-white font-extrabold text-3xl'>IPL 2024 Auction Tracker</h1>
       </header>
-      <div className=' w-11/12 flex flex-col  gap-10 mx-auto mt-3'>
-      <div className='w-full flex justify-between'>
+      <div className=' w-11/12 flex flex-col  gap-10 mx-auto mt-3 '>
+        <div className='w-full flex justify-between'>
 
-        <button className="bg-transparent hover:bg-blue-500 max-w-32  text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded " onClick={() => {
-          // countRef.current++
-          // console.log(countRef.current)
-          if (count > playersDetails.length) {
-            setCount(0)
-            return
+          <button className="bg-transparent hover:bg-blue-500 max-w-32  text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded " onClick={() => {
+            // countRef.current++
+            // console.log(countRef.current)
+            if (count > playersDetails.length) {
+              setCount(0)
+              return
+            }
+            setCount(s => {
+              s += 1
+              return s
+            })
+
           }
-          setCount(s => {
-            s += 1
-            return s
-          })
-          
-        }
-      }>
-          Next Bid
-        </button>
-        <button className="bg-transparent hover:bg-blue-500 max-w-32  text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded " onClick={() =>{
+          }>
+            Next Bid
+          </button>
+          <button className="bg-transparent hover:bg-blue-500 max-w-32  text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded " onClick={() => {
 
-          // countRef.current++
-          // console.log(countRef.current)
-          window.localStorage.removeItem("details")
-          window.localStorage.removeItem("disteam")
+            // countRef.current++
+            // console.log(countRef.current)
+            window.localStorage.removeItem("details")
+            window.localStorage.removeItem("disteam")
 
-          window.location.reload()
-        } 
-        }>
-          reset
-        </button>
-          </div>
+            window.location.reload()
+          }
+          }>
+            reset
+          </button>
+        </div>
 
-        <div className=' mx-auto w-full border-2 min-h-44 shadow-xl flex flex-wrap gap-14 py-10 px-1 justify-center '>
+        <div className=' mx-auto w-full border-2 min-h-44 shadow-xl flex flex-wrap gap-14 py-10 px-1 justify-center rounded-xl bg-white'>
           {Object.keys(arr).map((x, index) => (
-            <div className=' flex gap-2 items-center' key={index}>
+            <div className=' flex gap-2 items-center flex-wrap justify-center' key={index}>
               <label htmlFor={x}>{x}&nbsp;:</label>
               <input type="text" name={x} required className='bg-gray-200 rounded-md p-2 text-gray-600' value={arr[x]} readOnly />
             </div>
@@ -117,62 +125,35 @@ function App() {
           </div>
           <div>
             <label htmlFor="playerPrice">Price (in Crores):</label>
-            <input type="number" id="playerPrice" required step={(price >= 5 ? 0.25 : 0.20)} min="0" defaultValue={price} className='rounded-md p-2 border-2' onChange={h} />
+            <input type="number" id="playerPrice" required step={(price >= 5 ? 0.25 : 0.20)} value={price} className='rounded-md p-2 border-2' onChange={h} />
           </div>
 
 
         </div>
-        <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded max-w-36 " onClick={()=>{
-          const d=teamDetails.map((x)=>{
-            if(x.name===t){
-              let r=parseFloat(price)+parseFloat(x.spent)
-              console.log("s",x[arr.Role])
-                          return {...x,[`${arr.Role}`]:[...x[`${arr.Role}`],`${arr.playerName} (${arr.Rank})- ₹${price}crore`],spent:r.toFixed(2), remaining:(x.remaining-price).toFixed(2), }
+        <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded max-w-36 " onClick={() => {
+          const d = teamDetails.map((x) => {
+            if (x.name === t) {
+              let r = parseFloat(price) + parseFloat(x.spent)
+              console.log("s", x[arr.Role])
+              return { ...x, [`${arr.Role}`]: [...x[`${arr.Role}`], `${arr.playerName} (${arr.Rank})- ₹${price}crore`], spent: r.toFixed(2), remaining: (x.remaining - price).toFixed(2), }
             }
             return x
           })
+          alert(`${arr.playerName} is sold to a ${t}`)
           setTeamDetails(d)
-          window.localStorage.setItem("details",JSON.stringify(d))
+          window.localStorage.setItem("details", JSON.stringify(d))
         }}>
           ADD player
         </button>
 
       </div>
+      {/* <ul className='w-full flex gap-5 justify-evenly mb-10 mt-10'><li className='font-extrabold text-2xl cursor-pointer rounded-md  p-2' onClick={(e) => {
+        
+        setTog(true)}}>Qualifed</li><li className='font-extrabold text-2xl  rounded-md  p-2 cursor-pointer ' onClick={(e) => {
+        setTog(false) */}
+      {/* }}>disQualifed</li></ul> */}
+   <TeamList teamDetails={teamDetails} /> 
 
-      {/* team bufget */}
-      <div className='mx-auto w-full'>
-        <h1 className='text-center text-2xl font-bold mb-10'>Team Budget</h1>
-        <div className='w-10/12 flex flex-wrap mx-auto justify-evenly mb-4 gap-y-6'>
-          {teamDetails.map((x, index) => (
-            <div className='w-full md:w-5/12 flex flex-col gap-2 items-center  border-2 rounded-md box-border min-w-52 shadow-lg p-2' key={index}>
-              <h3 className="text-xl text-blue-600">{x.name}</h3>
-              <p>Spent: ₹<span id="${team}-spent">{x.spent}</span> crore</p>
-              <p>Remaining: ₹<span id="${team}-remaining">{x.remaining}</span> crore</p>
-
-
-              <div className="w-full flex flex-col justify" ><h4 className="text-md text-blue-600">Wicketkeeper:</h4>
-                <ul className="w-full flex flex-col justify-evenly items-start"
-
-                >{x.WicketKeeper.map((x, index) =>
-                  <li key={index} >{x}</li>
-                )}</ul></div>
-              <div className="w-full flex flex-col justify" ><h4 className="text-md text-blue-600">Bowler:</h4><ul className="w-full flex flex-col justify-evenly items-start">{x.Bowler.map((x, index) =>
-                <li key={index} >{x}</li>
-              )}</ul></div>
-              <div className="w-full flex flex-col justify" ><h4 className="text-md text-blue-600">Batsman:</h4><ul className="w-full flex flex-col justify-evenly items-start">{x.Batsman.map((x, index) =>
-                <li key={index} >{x}</li>
-              )}</ul></div>
-              <div className="w-full flex flex-col justify" ><h4 className="text-md text-blue-600">All rounders:</h4><ul className="w-full flex flex-col justify-evenly items-start">{x["All-rounder"].map((x, index) =>
-                <li key={index} >{x}</li>
-              )}</ul></div>
-              <div className="w-full flex flex-col justify" ><h4 className="text-md text-blue-600"> Finisher:</h4><ul className="w-full flex flex-col justify-evenly items-start">{x.Finisher.map((x, index) =>
-                <li key={index} >{x}</li>
-              )}</ul></div>
-
-            </div>
-          ))}
-        </div>
-      </div>
     </>
   )
 }
