@@ -53,7 +53,7 @@ function App() {
   useEffect(()=>{
     let r=teamDetails.find(x=>x.spent>=80)
     if(r){
-      alert(r.name,"is disqualified")
+      alert(`${r.name},"is disqualified`)
     }
   },[teamDetails])
 
