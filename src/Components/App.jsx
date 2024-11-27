@@ -33,7 +33,7 @@ function App() {
     }
   }))
   const h = (e) => {
-    setPrice(e.target.value)
+    setPrice(parseFloat(e.target.value/1).toFixed(2))
   }
   const hh = (e) => {
     console.log(e.target)
@@ -114,7 +114,7 @@ function App() {
           const d=teamDetails.map((x)=>{
             if(x.name===t){
               console.log("s",x[arr.Role])
-                          return {...x,[`${arr.Role}`]:[...x[`${arr.Role}`],`${arr.playerName} (${arr.Rank})- ₹${price}crore`],spent:price, remaining:(x.remaining-price).toFixed(2), }
+                          return {...x,[`${arr.Role}`]:[...x[`${arr.Role}`],`${arr.playerName} (${arr.Rank})- ₹${price}crore`],spent:parseFloat(price+x.spent).toFixed(2), remaining:(x.remaining-price).toFixed(2), }
             }
             return x
           })
@@ -129,9 +129,9 @@ function App() {
       {/* team bufget */}
       <div className='mx-auto w-full'>
         <h1 className='text-center text-2xl font-bold mb-10'>Team Budget</h1>
-        <div className='w-10/12 flex flex-wrap mx-auto gap-x-4 justify-evenly mb-4 gap-y-6'>
+        <div className='w-10/12 flex flex-wrap mx-auto justify-evenly mb-4 gap-y-6'>
           {teamDetails.map((x, index) => (
-            <div className='w-5/12 flex flex-col gap-2 items-center  border-2 rounded-md box-border min-w-52 shadow-lg p-2' key={index}>
+            <div className='w-full md:w-5/12 flex flex-col gap-2 items-center  border-2 rounded-md box-border min-w-52 shadow-lg p-2' key={index}>
               <h3 className="text-xl text-blue-600">{x.name}</h3>
               <p>Spent: ₹<span id="${team}-spent">{x.spent}</span> crore</p>
               <p>Remaining: ₹<span id="${team}-remaining">{x.remaining}</span> crore</p>
