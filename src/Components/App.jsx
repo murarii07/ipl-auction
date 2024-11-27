@@ -4,7 +4,7 @@ import '../App.css'
 import { players } from '../team'
 
 function App() {
-  const [t,setT]=useState("")
+  const [t, setT] = useState("")
   const [playersDetails] = useState(players)
   const [arr, setArr] = useState(playersDetails[0])
   const [count, setCount] = useState(0)
@@ -21,20 +21,22 @@ function App() {
     "Lucknow Super Giants",
     "Gujarat Titans"])
 
-  const [teamDetails,setTeamDetails] = useState(teamArr.map(x=>{
-    return{name:x, spent: 0,
-    remaining: 80,
-    WicketKeeper: [],
-    Batsman: [],
-    Finisher: [],
-    Bowler: [],
-    "All-rounder": []
-}}))
+  const [teamDetails, setTeamDetails] = useState(teamArr.map(x => {
+    return {
+      name: x, spent: 0,
+      remaining: 80,
+      WicketKeeper: [],
+      Batsman: [],
+      Finisher: [],
+      Bowler: [],
+      "All-rounder": []
+    }
+  }))
   const h = (e) => {
     setPrice(e.target.value)
   }
   const hh = (e) => {
-  setT(e.target.value)
+    setT(e.target.value)
   }
   useEffect(() => {
     console.log("A")
@@ -43,10 +45,10 @@ function App() {
     setArr(playersDetails[count])
   }, [count])
 
-  useEffect(()=>{
+  useEffect(() => {
     setPrice(arr.basePrice.split("")[0])
 
-  },[arr])
+  }, [arr])
 
   return (
     <>
@@ -57,15 +59,15 @@ function App() {
         <button className="bg-transparent hover:bg-blue-500 max-w-32  text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded " onClick={() => {
           // countRef.current++
           // console.log(countRef.current)
-
+          if (count > playersDetails.length) {
+            setCount(0)
+            return
+          }
           setCount(s => {
-            if (s >= 0 && s < playersDetails.length) {
-              s += 1
-              return s;
-            }
+            s += 1
             return s
           })
-          
+
         }
         }>
           Next Bid
@@ -89,20 +91,20 @@ function App() {
           </div>
           <div>
             <label htmlFor="playerPrice">Price (in Crores):</label>
-            <input type="number" id="playerPrice" required step={(price >= 5 ? 0.25 : 0.20)} min="0" defaultValue={price}  className='rounded-md p-2 border-2' onChange={h} />
+            <input type="number" id="playerPrice" required step={(price >= 5 ? 0.25 : 0.20)} min="0" defaultValue={price} className='rounded-md p-2 border-2' onChange={h} />
           </div>
 
 
         </div>
-        <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded max-w-36 " onClick={()=>{
-          const d=teamDetails.map((x)=>{
-            if(x.name==="Chennai Super Kings"){
-              console.log("s",x[arr.Role])
-                          return {...x,[`${arr.Role}`]:[...x[`${arr.Role}`],`${arr.playerName} (${arr.Rank})- ₹${price}crore`],spent:price, remaining:(x.remaining-price).toFixed(2), }
+        <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded max-w-36 " onClick={() => {
+          const d = teamDetails.map((x) => {
+            if (x.name === t) {
+              console.log("s", x[arr.Role])
+              return { ...x, [`${arr.Role}`]: [...x[`${arr.Role}`], `${arr.playerName} (${arr.Rank})- ₹${price}crore`], spent: price, remaining: (x.remaining - price).toFixed(2), }
             }
             return x
           })
-      setTeamDetails(d)
+          setTeamDetails(d)
         }}>
           ADD player
         </button>
@@ -111,34 +113,34 @@ function App() {
 
       {/* team bufget */}
       <div className='mx-auto w-full'>
-        <h1 className='text-center'>Team Budget</h1>
+        <h1 className='text-center text-2xl font-bold'>Team Budget</h1>
         <div className='w-10/12 flex flex-wrap mx-auto gap-x-4 justify-evenly mb-4 gap-y-6'>
           {teamDetails.map((x, index) => (
             <div className='w-2/5 flex flex-col gap-2 items-center  border-2 rounded-md box-border min-w-52 shadow-lg p-2' key={index}>
               <h3 className="text-xl text-blue-600">{x.name}</h3>
               <p>Spent: ₹<span id="${team}-spent">{x.spent}</span> crore</p>
               <p>Remaining: ₹<span id="${team}-remaining">{x.remaining}</span> crore</p>
-             
-             
+
+
               <div className="w-full flex flex-col justify" ><h4 className="text-md text-blue-600">Wicketkeeper:</h4>
-              <ul className="w-full flex flex-col justify-evenly items-start"
-              
-              >{x.WicketKeeper.map((x,index)=>
-              <li key={index} >{x}</li>
+                <ul className="w-full flex flex-col justify-evenly items-start"
+
+                >{x.WicketKeeper.map((x, index) =>
+                  <li key={index} >{x}</li>
+                )}</ul></div>
+              <div className="w-full flex flex-col justify" ><h4 className="text-md text-blue-600">Bowler:</h4><ul className="w-full flex flex-col justify-evenly items-start">{x.Bowler.map((x, index) =>
+                <li key={index} >{x}</li>
               )}</ul></div>
-              <div className="w-full flex flex-col justify" ><h4 className="text-md text-blue-600">Bowler:</h4><ul className="w-full flex flex-col justify-evenly items-start">{x.Bowler.map((x,index)=>
-              <li key={index} >{x}</li>
+              <div className="w-full flex flex-col justify" ><h4 className="text-md text-blue-600">Batsman:</h4><ul className="w-full flex flex-col justify-evenly items-start">{x.Batsman.map((x, index) =>
+                <li key={index} >{x}</li>
               )}</ul></div>
-              <div className="w-full flex flex-col justify" ><h4 className="text-md text-blue-600">Batsman:</h4><ul className="w-full flex flex-col justify-evenly items-start">{x.Batsman.map((x,index)=>
-              <li key={index} >{x}</li>
+              <div className="w-full flex flex-col justify" ><h4 className="text-md text-blue-600">All rounders:</h4><ul className="w-full flex flex-col justify-evenly items-start">{x["All-rounder"].map((x, index) =>
+                <li key={index} >{x}</li>
               )}</ul></div>
-              <div className="w-full flex flex-col justify" ><h4 className="text-md text-blue-600">All rounders:</h4><ul className="w-full flex flex-col justify-evenly items-start">{x["All-rounder"].map((x,index)=>
-              <li key={index} >{x}</li>
+              <div className="w-full flex flex-col justify" ><h4 className="text-md text-blue-600"> Finisher:</h4><ul className="w-full flex flex-col justify-evenly items-start">{x.Finisher.map((x, index) =>
+                <li key={index} >{x}</li>
               )}</ul></div>
-               <div className="w-full flex flex-col justify" ><h4 className="text-md text-blue-600"> Finisher:</h4><ul className="w-full flex flex-col justify-evenly items-start">{x.Finisher.map((x,index)=>
-              <li key={index} >{x}</li>
-              )}</ul></div>
-               
+
             </div>
           ))}
         </div>
