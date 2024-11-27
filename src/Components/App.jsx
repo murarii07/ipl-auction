@@ -21,7 +21,7 @@ function App() {
     "Gujarat Titans"])
     const [t, setT] = useState(teamArr[0])
 
-  const [teamDetails, setTeamDetails] = useState(teamArr.map(x => {
+  const [teamDetails, setTeamDetails] = useState(window.localStorage.getItem("details") || teamArr.map(x => {
     return {
       name: x, spent: 0,
       remaining: 80,
