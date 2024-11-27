@@ -4,7 +4,6 @@ import '../App.css'
 import { players } from '../team'
 
 function App() {
-  const [t, setT] = useState(teamArr[0])
   const [playersDetails] = useState(players)
   const [arr, setArr] = useState(playersDetails[0])
   const [count, setCount] = useState(0)
@@ -20,6 +19,7 @@ function App() {
     "Sunrisers Hyderabad",
     "Lucknow Super Giants",
     "Gujarat Titans"])
+    const [t, setT] = useState(teamArr[0])
 
   const [teamDetails, setTeamDetails] = useState(teamArr.map(x => {
     return {
