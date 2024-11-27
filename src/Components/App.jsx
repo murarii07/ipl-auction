@@ -21,7 +21,7 @@ function App() {
     "Lucknow Super Giants",
     "Gujarat Titans"])
   const [disteam, setDisTeam] = useState(JSON.parse(window.localStorage.getItem("disteam")) || [])
-  const [t, setT] = useState(teamArr[0])
+  const [t, setT] = useState("")
 
   const [teamDetails, setTeamDetails] = useState(JSON.parse(window.localStorage.getItem("details")) || teamArr.map(x => {
     return {
@@ -67,6 +67,10 @@ function App() {
       setTog(false)
     }
   }, [teamDetails])
+  useEffect(()=>{
+    setT(teamArr[0])
+
+  },[teamArr])
 
 
   return (
