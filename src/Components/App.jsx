@@ -35,7 +35,8 @@ function App() {
     setPrice(e.target.value)
   }
   const hh= (e) => {
-    sT(e.target.value)
+    console.log(e.target)
+    // sT(e.target.value)
   }
   useEffect(() => {
     console.log("A")
