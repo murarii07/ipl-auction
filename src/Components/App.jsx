@@ -4,7 +4,6 @@ import '../App.css'
 import { players } from '../team'
 
 function App() {
-  const [t,sT]=useState("")
   const [playersDetails] = useState(players)
   const [arr, setArr] = useState(playersDetails[0])
   const [count, setCount] = useState(0)
@@ -34,10 +33,7 @@ function App() {
   const h = (e) => {
     setPrice(e.target.value)
   }
-  const hh= (e) => {
-    console.log(e.target)
-    // sT(e.target.value)
-  }
+
   useEffect(() => {
     console.log("A")
   }, [])
@@ -83,7 +79,7 @@ function App() {
 
           <div>
             <label htmlFor="team">Select Team:</label>
-            <select id="team" className='p-2 rounded-md px-3 bg-white border-2' required onChange={hh}>
+            <select id="team" className='p-2 rounded-md px-3 bg-white border-2' required>
               {teamArr.map((x, index) =>
                 <option value={x} key={index}>{x}</option>
               )}
@@ -100,9 +96,7 @@ function App() {
           const d=teamDetails.map((x)=>{
             if(x.name==="Chennai Super Kings"){
               console.log("s",x[arr.Role])
-                          return {...x,
-                            [`${arr.Role}`]:[...x[`${arr.Role}`],`${arr.playerName} (${arr.Rank})- ₹${price}crore`],
-                            spent:price, remaining:(x.remaining-price).toFixed(2), }
+                          return {...x,[`${arr.Role}`]:[...x[`${arr.Role}`],`${arr.playerName} (${arr.Rank})- ₹${price}crore`],spent:price, remaining:(x.remaining-price).toFixed(2), }
             }
             return x
           })
