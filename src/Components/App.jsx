@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { players } from '../team'
 import { TeamList } from './TeamList'
 import '../App.css'
-
+import { Tab, TabPanel,TabGroup,TabList,TabPanels } from '@headlessui/react';
 function App() {
   const [playersDetails] = useState(players)
   const [tog, setTog] = useState(true)
@@ -142,17 +142,52 @@ function App() {
           alert(`${arr.playerName} is sold to a ${t}`)
           setTeamDetails(d)
           window.localStorage.setItem("details", JSON.stringify(d))
+          setCount(s=>s+1)
         }}>
           ADD player
         </button>
 
       </div>
-      {/* <ul className='w-full flex gap-5 justify-evenly mb-10 mt-10'><li className='font-extrabold text-2xl cursor-pointer rounded-md  p-2' onClick={(e) => {
-        
-        setTog(true)}}>Qualifed</li><li className='font-extrabold text-2xl  rounded-md  p-2 cursor-pointer ' onClick={(e) => {
-        setTog(false) */}
-      {/* }}>disQualifed</li></ul> */}
-   <TeamList teamDetails={teamDetails} /> 
+
+
+
+    <TabGroup className="w-11/12 mx-auto mt-10">
+      <TabList className=" w-full flex gap-x-1 border-b border-gray-200">
+        <Tab
+          className={({ selected }) =>
+            `py-3 px-4 text-sm font-medium rounded-t-lg ${
+              selected
+                ? 'bg-white text-blue-600 border-b-transparent'
+                : 'bg-gray-50 text-gray-500 hover:text-gray-700'
+            }`
+          }
+        >
+          Qualified
+        </Tab>
+        <Tab
+          className={({ selected }) =>
+            `py-3 px-4 text-sm font-medium rounded-t-lg ${
+              selected
+                ? 'bg-white text-blue-600 border-b-transparent'
+                : 'bg-gray-50 text-gray-500 hover:text-gray-700'
+            }`
+          }
+        >
+          disQualified
+        </Tab>
+      </TabList>
+      <TabPanels>
+        <TabPanel>
+          <TeamList teamDetails={teamDetails} />
+        </TabPanel>
+        <TabPanel>
+          <TeamList teamDetails={disteam} />
+        </TabPanel>
+      </TabPanels>
+    </TabGroup>
+
+  
+
 
     </>
   )

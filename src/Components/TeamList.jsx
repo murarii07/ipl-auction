@@ -1,8 +1,9 @@
 import React from 'react'
 
-export const TeamList = ({teamDetails}) => {
+export const TeamList = (props) => {
+  const{teamDetails,className,...rest}=props
   return (
-    <div className='mx-auto w-full'>
+    <div className={`mx-auto w-full ${className}`}  {...rest}>
     <h1 className='text-center text-2xl font-bold mb-10'>Teams</h1>
     <div className='w-10/12 flex flex-wrap mx-auto justify-evenly mb-4 gap-y-6'>
       {teamDetails.map((x, index) => (
