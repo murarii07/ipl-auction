@@ -17,7 +17,6 @@ function App() {
     "Punjab Kings",
     "Rajasthan Royals",
     "Sunrisers Hyderabad",
-
     "Lucknow Super Giants",
     "Gujarat Titans"])
 
@@ -28,7 +27,7 @@ function App() {
     Batsman: [],
     Finisher: [],
     Bowler: [],
-    Allrounder: []
+    "All-rounder": []
 }}))
   const h = (e) => {
     setPrice(e.target.value)
