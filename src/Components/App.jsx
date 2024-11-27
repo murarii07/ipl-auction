@@ -95,7 +95,7 @@ function App() {
         <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded max-w-36 " onClick={()=>{
           const d=teamDetails.map((x)=>{
             if(x.name==="Chennai Super Kings"){
-              console.log(arr.playerName)
+              console.log(arr.Role)
               return {...x,[arr.Role]:[...x[arr.Role],`${arr.playerName} (${arr.Rank})- ₹${price}crore`],spent:price, remaining:(x.remaining-price).toFixed(2), }
             }
             return x
