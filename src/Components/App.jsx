@@ -128,7 +128,7 @@ function App() {
               <div id="${team}-Wicketkeeper" ><h4 className="text-md text-blue-600">All rounders:</h4><ul>{x.Allrounders.map((x,index)=>
               <li key={index} >{x}</li>
               )}</ul></div>
-               <div id="${team}-Wicketkeeper" ><h className="text-md text-blue-600"> Finisher:</h4><ul>{x.Finisher.map((x,index)=>
+               <div id="${team}-Wicketkeeper" ><h4 className="text-md text-blue-600"> Finisher:</h4><ul>{x.Finisher.map((x,index)=>
               <li key={index} >{x}</li>
               )}</ul></div>
                
