@@ -128,10 +128,10 @@ function App() {
 
       {/* team bufget */}
       <div className='mx-auto w-full'>
-        <h1 className='text-center text-2xl font-bold'>Team Budget</h1>
+        <h1 className='text-center text-2xl font-bold mb-10'>Team Budget</h1>
         <div className='w-10/12 flex flex-wrap mx-auto gap-x-4 justify-evenly mb-4 gap-y-6'>
           {teamDetails.map((x, index) => (
-            <div className='w-2/5 flex flex-col gap-2 items-center  border-2 rounded-md box-border min-w-52 shadow-lg p-2' key={index}>
+            <div className='w-5/12 flex flex-col gap-2 items-center  border-2 rounded-md box-border min-w-52 shadow-lg p-2' key={index}>
               <h3 className="text-xl text-blue-600">{x.name}</h3>
               <p>Spent: ₹<span id="${team}-spent">{x.spent}</span> crore</p>
               <p>Remaining: ₹<span id="${team}-remaining">{x.remaining}</span> crore</p>
