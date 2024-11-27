@@ -4,6 +4,7 @@ import '../App.css'
 import { players } from '../team'
 
 function App() {
+  const [t,setT]=useState("")
   const [playersDetails] = useState(players)
   const [arr, setArr] = useState(playersDetails[0])
   const [count, setCount] = useState(0)
@@ -32,7 +33,9 @@ function App() {
   const h = (e) => {
     setPrice(e.target.value)
   }
-
+  const hh = (e) => {
+  setT(e.target.value)
+  }
   useEffect(() => {
     console.log("A")
   }, [])
@@ -78,7 +81,7 @@ function App() {
 
           <div>
             <label htmlFor="team">Select Team:</label>
-            <select id="team" className='p-2 rounded-md px-3 bg-white border-2' required>
+            <select id="team" className='p-2 rounded-md px-3 bg-white border-2' required onChange={hh}>
               {teamArr.map((x, index) =>
                 <option value={x} key={index}>{x}</option>
               )}
@@ -123,13 +126,13 @@ function App() {
               >{x.WicketKeeper.map((x,index)=>
               <li key={index} >{x}</li>
               )}</ul></div>
-              <div className="w-full flex flex-col justify" ><h4 className="text-md text-blue-600">Bowler:</h4><ul className="w-full flex flex-col justify-evenly items-start">{x.Bowlers.map((x,index)=>
+              <div className="w-full flex flex-col justify" ><h4 className="text-md text-blue-600">Bowler:</h4><ul className="w-full flex flex-col justify-evenly items-start">{x.Bowler.map((x,index)=>
               <li key={index} >{x}</li>
               )}</ul></div>
               <div className="w-full flex flex-col justify" ><h4 className="text-md text-blue-600">Batsman:</h4><ul className="w-full flex flex-col justify-evenly items-start">{x.Batsman.map((x,index)=>
               <li key={index} >{x}</li>
               )}</ul></div>
-              <div className="w-full flex flex-col justify" ><h4 className="text-md text-blue-600">All rounders:</h4><ul className="w-full flex flex-col justify-evenly items-start">{x.Allrounders.map((x,index)=>
+              <div className="w-full flex flex-col justify" ><h4 className="text-md text-blue-600">All rounders:</h4><ul className="w-full flex flex-col justify-evenly items-start">{x["All-rounders"].map((x,index)=>
               <li key={index} >{x}</li>
               )}</ul></div>
                <div className="w-full flex flex-col justify" ><h4 className="text-md text-blue-600"> Finisher:</h4><ul className="w-full flex flex-col justify-evenly items-start">{x.Finisher.map((x,index)=>
