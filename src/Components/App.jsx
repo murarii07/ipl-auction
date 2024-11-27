@@ -8,7 +8,7 @@ function App() {
   const [arr, setArr] = useState(playersDetails[0])
   const [count, setCount] = useState(0)
   // const countRef=useRef(count)
-  const [price, setPrice] = useState(arr.basePrice.split("")[0])
+  const [price, setPrice] = useState(parseFloat(arr.basePrice.split("")[0]))
   const [teamArr] = useState(["Chennai Super Kings",
     "Mumbai Indians",
     "Royal Challengers Bangalore",
