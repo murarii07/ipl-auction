@@ -96,6 +96,9 @@ function App() {
           const d=teamDetails.map((x)=>{
             if(x.name==="Chennai Super Kings"){
               console.log(arr.Role)
+              let o={}
+              o[arr.Role]=x[arr.Role].push(`${arr.playerName} (${arr.Rank})- ₹${price}crore`)
+              console.log(o)
               return {...x,[`${arr.Role}`]:[...x[`${arr.Role}`],`${arr.playerName} (${arr.Rank})- ₹${price}crore`],spent:price, remaining:(x.remaining-price).toFixed(2), }
             }
             return x
