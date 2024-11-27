@@ -8,7 +8,7 @@ function App() {
   const [arr, setArr] = useState(playersDetails[0])
   const [count, setCount] = useState(0)
   // const countRef=useRef(count)
-  const [price, setPrice] = useState(parseFloat(arr.basePrice.split("")[0]))
+  const [price, setPrice] = useState(parseFloat(arr.basePrice))
   const [teamArr] = useState(["Chennai Super Kings",
     "Mumbai Indians",
     "Royal Challengers Bangalore",
@@ -33,7 +33,7 @@ function App() {
     }
   }))
   const h = (e) => {
-    setPrice(parseFloat(e.target.value/1).toFixed(2))
+    setPrice(e.target.value)
   }
   const hh = (e) => {
     console.log(e.target)
@@ -113,6 +113,7 @@ function App() {
         <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded max-w-36 " onClick={()=>{
           const d=teamDetails.map((x)=>{
             if(x.name===t){
+              // let r=(parseFloat(price)+x.spent)
               console.log("s",x[arr.Role])
                           return {...x,[`${arr.Role}`]:[...x[`${arr.Role}`],`${arr.playerName} (${arr.Rank})- ₹${price}crore`],spent:price+x.spent, remaining:(x.remaining-price).toFixed(2), }
             }
