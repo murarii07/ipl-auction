@@ -115,7 +115,7 @@ function App() {
             if(x.name===t){
               let r=(parseFloat(price.toString())+parseFloat(x.spent.toString())).toFixed(2)
               console.log("s",x[arr.Role])
-                          return {...x,[`${arr.Role}`]:[...x[`${arr.Role}`],`${arr.playerName} (${arr.Rank})- ₹${price}crore`],spent:price+x.spent, remaining:(x.remaining-price).toFixed(2), }
+                          return {...x,[`${arr.Role}`]:[...x[`${arr.Role}`],`${arr.playerName} (${arr.Rank})- ₹${price}crore`],spent:r, remaining:(x.remaining-price).toFixed(2), }
             }
             return x
           })
