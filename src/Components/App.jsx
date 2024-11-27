@@ -57,6 +57,8 @@ function App() {
         <h1 className=' text-white font-extrabold text-3xl'>IPL 2024 Auction Tracker</h1>
       </header>
       <div className=' w-11/12 flex flex-col  gap-10 mx-auto mt-3'>
+      <div className='w-full flex justify-between'>
+
         <button className="bg-transparent hover:bg-blue-500 max-w-32  text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded " onClick={() => {
           // countRef.current++
           // console.log(countRef.current)
@@ -68,11 +70,19 @@ function App() {
             s += 1
             return s
           })
-
+          
         }
-        }>
+      }>
           Next Bid
         </button>
+        <button className="bg-transparent hover:bg-blue-500 max-w-32  text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded " onClick={() => 
+          // countRef.current++
+          // console.log(countRef.current)
+          window.localStorage.removeItem("details")
+        }>
+          reset
+        </button>
+          </div>
 
         <div className=' mx-auto w-full border-2 min-h-44 shadow-xl flex flex-wrap gap-14 py-10 px-1 justify-center '>
           {Object.keys(arr).map((x, index) => (
@@ -106,6 +116,7 @@ function App() {
             return x
           })
           setTeamDetails(d)
+          window.localStorage.setItem("details",d)
         }}>
           ADD player
         </button>
