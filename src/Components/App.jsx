@@ -35,7 +35,7 @@ function App() {
     setPrice(e.target.value)
   }
   const hh= (e) => {
-    setT(e.target.value)
+    sT(e.target.value)
   }
   useEffect(() => {
     console.log("A")
@@ -82,7 +82,7 @@ function App() {
 
           <div>
             <label htmlFor="team">Select Team:</label>
-            <select id="team" className='p-2 rounded-md px-3 bg-white border-2' required>
+            <select id="team" className='p-2 rounded-md px-3 bg-white border-2' required onChange={hh}>
               {teamArr.map((x, index) =>
                 <option value={x} key={index}>{x}</option>
               )}
