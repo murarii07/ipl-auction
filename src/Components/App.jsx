@@ -116,7 +116,7 @@ function App() {
             return x
           })
           setTeamDetails(d)
-          window.localStorage.setItem("details",d)
+          window.localStorage.setItem("details",JSON.stringify(d))
         }}>
           ADD player
         </button>
