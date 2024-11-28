@@ -16,7 +16,7 @@ export const TeamList = (props) => {
           <div className="w-full flex flex-col justify" ><h4 className="text-md text-blue-600 font-medium">Wicketkeeper:</h4>
             <ul className="w-full flex flex-col justify-evenly items-start"
 
-            >{x.WicketKeeper.map((x, index) =>
+            >{x.Wicketkeeper.map((x, index) =>
               <li key={index} >{x}</li>
             )}</ul></div>
           <div className="w-full flex flex-col justify" ><h4 className="text-md text-blue-600 font-medium">Bowler:</h4><ul className="w-full flex flex-col justify-evenly items-start">{x.Bowler.map((x, index) =>

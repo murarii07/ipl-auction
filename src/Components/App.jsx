@@ -27,7 +27,7 @@ function App() {
     return {
       name: x, spent: 0,
       remaining: 80,
-      WicketKeeper: [],
+      Wicketkeeper: [],
       Batsman: [],
       Finisher: [],
       Bowler: [],
@@ -98,14 +98,35 @@ function App() {
             Next Bid
           </button>
           <button className="bg-transparent hover:bg-blue-500 max-w-32  text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded " onClick={() => {
+            // countRef.current++
+            // console.log(countRef.current)
+            if (count > playersDetails.length || count===0) {
+              setCount(0)
+              return
+            }
+            setCount(s => {
+              s -= 1
+              return s
+            })
+
+          }
+          }>
+            Previous Bid
+          </button>
+          <button className="bg-transparent hover:bg-blue-500 max-w-32  text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded " onClick={() => {
 
             // countRef.current++
             // console.log(countRef.current)
-            window.localStorage.removeItem("details")
-            window.localStorage.removeItem("disteam")
+            let c=confirm("are you sure")
+            console.log(c)
+            if(c){
 
-            window.location.reload()
-          }
+              window.localStorage.removeItem("details")
+              window.localStorage.removeItem("disteam")
+  
+              window.location.reload()
+            }
+            }
           }>
             reset
           </button>
@@ -138,8 +159,9 @@ function App() {
           const d = teamDetails.map((x) => {
             if (x.name === t) {
               let r = parseFloat(price) + parseFloat(x.spent)
+              let rem = parseFloat(x.remaining) - parseFloat(price)
               console.log("s", x[arr.Role])
-              return { ...x, [`${arr.Role}`]: [...x[`${arr.Role}`], `${arr.playerName} (${arr.Rank})- ₹${price}crore`], spent: r.toFixed(2), remaining: (x.remaining - price).toFixed(2), }
+              return { ...x, [`${arr.Role}`]: [...x[`${arr.Role}`], `${arr.playerName} (${arr.Rank})- ₹${price}crore`], spent: r.toFixed(3), remaining: rem.toFixed(3), }
             }
             return x
           })
