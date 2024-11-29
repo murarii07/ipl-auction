@@ -3,11 +3,11 @@ import React from 'react'
 export const TeamList = (props) => {
   const{teamDetails,className,...rest}=props
   return (
-    <div className={`mx-auto w-full ${className}`}  {...rest}>
+    <div className={`mx-auto w-full  ${className}`}  {...rest}>
     <h1 className='text-center text-2xl font-bold mb-10'>Teams</h1>
-    <div className='w-10/12 flex flex-wrap mx-auto justify-evenly mb-4 gap-y-6'>
+    <div className='w-10/12 flex flex-wrap mx-auto justify-evenly mb-4 gap-y-6 '>
       {teamDetails.map((x, index) => (
-        <div className='w-full md:w-5/12 flex flex-col gap-2 items-center  border-2 rounded-md box-border min-w-52 shadow-lg p-2 bg-white' key={index}>
+        <div className='w-full md:w-5/12 flex flex-col gap-2 items-center   rounded-md box-border min-w-52 shadow-lg p-2 bg-neutral-900 shadow-black ' key={index}>
           <h3 className="text-xl text-blue-600">{x.name}</h3>
           <p>Spent: ₹<span id="${team}-spent">{x.spent}</span> crore</p>
           <p>Remaining: ₹<span id="${team}-remaining">{x.remaining}</span> crore</p>

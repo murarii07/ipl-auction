@@ -2,13 +2,18 @@ import { useEffect, useRef, useState } from 'react'
 import { players } from '../team'
 import { TeamList } from './TeamList'
 import '../App.css'
-import { Tab, TabPanel,TabGroup,TabList,TabPanels } from '@headlessui/react';
+import DialogBox from './Dialog'
+import { Toggle } from './Toggle'
+
+
+
 function App() {
   const [playersDetails] = useState(players)
   const [tog, setTog] = useState(true)
   const [arr, setArr] = useState(playersDetails[0])
   const [count, setCount] = useState(0)
-  // const countRef=useRef(count)
+  const [isopen, setIsOpen] = useState(false)
+  const [isopenAdd, setIsOpenAdd] = useState(false)
   const [price, setPrice] = useState(parseFloat(arr.basePrice))
   const [teamArr, setTeamArr] = useState(["Chennai Super Kings",
     "Mumbai Indians",
@@ -67,19 +72,30 @@ function App() {
       setTog(false)
     }
   }, [teamDetails])
-  useEffect(()=>{
+  useEffect(() => {
     setT(teamArr[0])
 
-  },[teamArr])
+  }, [teamArr])
 
-
+  // useEffect(()=>{
+  //   const hadnle=(e)=>{
+  //     console.log("sd")
+  //     if(e.key==="Enter"){
+  //       setIsOpen(false)
+  //     }
+  //   }
+  //   document.querySelector("body").addEventListener("keypress",hadnle);
+  //   return(()=>{
+  //     document.querySelector("body").removeEventListener("keypress",hadnle);
+  //   })
+  // },[isopen])
   return (
     <>
-      <header className='min-h-16 bg-blue-500 flex justify-center items-center mt-0 '>
+      <header className='min-h-16 bg-neutral-800 flex justify-center items-center mt-0 '>
         <h1 className=' text-white font-extrabold text-3xl'>IPL 2024 Auction Tracker</h1>
       </header>
       <div className=' w-11/12 flex flex-col  gap-10 mx-auto mt-3 '>
-        <div className='w-full flex justify-between'>
+        <div className='w-full flex justify-between flex-wrap gap-4'>
 
           <button className="bg-transparent hover:bg-blue-500 max-w-32  text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded " onClick={() => {
             // countRef.current++
@@ -100,7 +116,7 @@ function App() {
           <button className="bg-transparent hover:bg-blue-500 max-w-32  text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded " onClick={() => {
             // countRef.current++
             // console.log(countRef.current)
-            if (count > playersDetails.length || count===0) {
+            if (count > playersDetails.length || count === 0) {
               setCount(0)
               return
             }
@@ -114,48 +130,72 @@ function App() {
             Previous Bid
           </button>
           <button className="bg-transparent hover:bg-blue-500 max-w-32  text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded " onClick={() => {
+            setIsOpen(true)
 
-            // countRef.current++
-            // console.log(countRef.current)
-            let c=confirm("are you sure")
-            console.log(c)
-            if(c){
-
-              window.localStorage.removeItem("details")
-              window.localStorage.removeItem("disteam")
-  
-              window.location.reload()
-            }
-            }
+          }
           }>
             reset
           </button>
         </div>
 
-        <div className=' mx-auto w-full border-2 min-h-44 shadow-xl flex flex-wrap gap-14 py-10 px-1 justify-center rounded-xl bg-white'>
+        <div className=' mx-auto w-full min-h-44 shadow-xl flex flex-wrap gap-14 py-10 px-1 justify-center rounded-xl bg-neutral-900 shadow-black'>
           {Object.keys(arr).map((x, index) => (
-            <div className=' flex gap-2 items-center flex-wrap justify-center' key={index}>
+            <div className=' flex gap-2 items-center flex-wrap justify-center text-pretty text-white' key={index}>
               <label htmlFor={x}>{x}&nbsp;:</label>
-              <input type="text" name={x} required className='bg-gray-200 rounded-md p-2 text-gray-600' value={arr[x]} readOnly />
+              <input type="text" name={x} required className='bg-neutral-800 rounded-md p-2 text-gray-400 w-5/12 ' value={arr[x]} readOnly />
             </div>
           ))}
 
-          <div>
-            <label htmlFor="team">Select Team:</label>
-            <select id="team" className='p-2 rounded-md px-3 bg-white border-2' required onChange={hh}>
+          <div className='flex gap-2 items-center flex-wrap justify-center text-pretty text-white'>
+            <label htmlFor="team" className='text-white'>Select Team:&nbsp;</label>
+            <select id="team" className='p-3 border-2 bg-neutral-800 rounded-md border-neutral-800 text-white  ' required onChange={hh}>
               {teamArr.map((x, index) =>
                 <option value={x} key={index}>{x}</option>
               )}
             </select>
           </div>
-          <div>
-            <label htmlFor="playerPrice">Price (in Crores):</label>
-            <input type="number" id="playerPrice" required step={(price >= 5 ? 0.25 : 0.20)} value={price} className='rounded-md p-2 border-2' onChange={h} />
+          <div className=' flex gap-2 items-center flex-wrap justify-center text-pretty text-white'>
+            <label htmlFor="playerPrice" className='text-white'>Price (in Crores): &nbsp;</label>
+            <input type="number" id="playerPrice" required step={(price >= 5 ? 0.25 : 0.20)} value={price} className=' border-2 w-5/12 bg-neutral-800 rounded-md border-neutral-800 text-white p-2' onChange={h} />
           </div>
 
 
         </div>
-        <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded max-w-36 " onClick={() => {
+        <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded max-w-36 "
+          onClick={() => {
+            setIsOpenAdd(true)
+
+          }}>
+          ADD player
+        </button>
+
+      </div>
+
+
+      <Toggle displayDQList={disteam} displayQList={teamDetails} />
+
+
+      <DialogBox
+        open={isopen}
+        title={"Log Data"}
+        description={"This will permanently delete your  data"}
+        info={"Are you sure you want to delete this records? All of your data will be permanently removed."}
+        functionHandle={() => {
+          window.localStorage.removeItem("details")
+          window.localStorage.removeItem("disteam")
+          window.location.reload()
+        }}
+        cancelFunction={() => {
+          setIsOpen(false)
+        }} />
+
+      <DialogBox
+        open={isopenAdd}
+        title={"ADD..."}
+        description={"This will permanently update your  data"}
+        info={` ${arr.playerName} will be sold to ${t} at ${price} Crores.`}
+        functionHandle={() => {
+          setIsOpenAdd(true)
           const d = teamDetails.map((x) => {
             if (x.name === t) {
               let r = parseFloat(price) + parseFloat(x.spent)
@@ -165,55 +205,14 @@ function App() {
             }
             return x
           })
-          alert(`${arr.playerName} is sold to a ${t}`)
           setTeamDetails(d)
           window.localStorage.setItem("details", JSON.stringify(d))
-          setCount(s=>s+1)
-        }}>
-          ADD player
-        </button>
-
-      </div>
-
-
-
-    <TabGroup className="w-11/12 mx-auto mt-10">
-      <TabList className=" w-full flex gap-x-1 border-b border-gray-200">
-        <Tab
-          className={({ selected }) =>
-            `py-3 px-4 text-sm font-medium rounded-t-lg ${
-              selected
-                ? 'bg-white text-blue-600 border-b-transparent'
-                : 'bg-gray-50 text-gray-500 hover:text-gray-700'
-            }`
-          }
-        >
-          Qualified
-        </Tab>
-        <Tab
-          className={({ selected }) =>
-            `py-3 px-4 text-sm font-medium rounded-t-lg ${
-              selected
-                ? 'bg-white text-blue-600 border-b-transparent'
-                : 'bg-gray-50 text-gray-500 hover:text-gray-700'
-            }`
-          }
-        >
-          disQualified
-        </Tab>
-      </TabList>
-      <TabPanels>
-        <TabPanel>
-          <TeamList teamDetails={teamDetails} />
-        </TabPanel>
-        <TabPanel>
-          <TeamList teamDetails={disteam} />
-        </TabPanel>
-      </TabPanels>
-    </TabGroup>
-
-  
-
+          setCount(s => s + 1)
+          setIsOpenAdd(false)
+        }}
+        cancelFunction={() => {
+          setIsOpenAdd(false)
+        }} />
 
     </>
   )
