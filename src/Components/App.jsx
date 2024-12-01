@@ -10,7 +10,7 @@ import { Toggle } from './Toggle'
 function App() {
 // window.localStorage.removeItem("count")
   const [playersDetails] = useState(players)
-  const [tog, setTog] = useState(true)
+
   const [arr, setArr] = useState(playersDetails[0])
   const [count, setCount] = useState(parseInt(window.localStorage.getItem("count")) || 0)
   const [isopen, setIsOpen] = useState(false)
@@ -73,7 +73,7 @@ function App() {
       window.localStorage.setItem("disteam", JSON.stringify(disteam))
       setTeamDetails(teamDetails.filter(x => x.name !== r.name))
       setTeamArr(teamArr.filter(x => x !== r.name))
-      setTog(false)
+    
     }
   }, [teamDetails])
   useEffect(() => {
