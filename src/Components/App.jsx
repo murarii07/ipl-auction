@@ -8,14 +8,16 @@ import { Toggle } from './Toggle'
 
 
 function App() {
+// window.localStorage.removeItem("count")
   const [playersDetails] = useState(players)
   const [tog, setTog] = useState(true)
   const [arr, setArr] = useState(playersDetails[0])
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(parseInt(window.localStorage.getItem("count")) || 0)
   const [isopen, setIsOpen] = useState(false)
   const [isopenAdd, setIsOpenAdd] = useState(false)
   const [price, setPrice] = useState(parseFloat(arr.basePrice))
-  const [teamArr, setTeamArr] = useState(["Chennai Super Kings",
+  const [teamArr, setTeamArr] = useState([
+    "Chennai Super Kings",
     "Mumbai Indians",
     "Royal Challengers Bangalore",
     "Kolkata Knight Riders",
@@ -53,7 +55,9 @@ function App() {
     console.log("A")
   }, [])
   useEffect(() => {
+    
     setArr(playersDetails[count])
+    window.localStorage.setItem("count",count)
   }, [count])
 
   useEffect(() => {
@@ -183,6 +187,7 @@ function App() {
         functionHandle={() => {
           window.localStorage.removeItem("details")
           window.localStorage.removeItem("disteam")
+          window.localStorage.removeItem("count")
           window.location.reload()
         }}
         cancelFunction={() => {
@@ -208,6 +213,7 @@ function App() {
           setTeamDetails(d)
           window.localStorage.setItem("details", JSON.stringify(d))
           setCount(s => s + 1)
+          window.localStorage.setItem("count",count)
           setIsOpenAdd(false)
         }}
         cancelFunction={() => {
